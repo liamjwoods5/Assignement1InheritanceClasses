@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Assignement1Inheritance.Entities
 {
-    internal class MyModernAppliances
+    internal class MyModernAppliances : ModernAppliances
     {
         /// <summary>
         /// Option 1: Performs a checkout
@@ -17,7 +17,7 @@ namespace Assignement1Inheritance.Entities
             Console.WriteLine("Enter the item number of an appliance: ");
 
             long itemNumber;
-
+            
             string userInput = Console.ReadLine();
             if (!long.TryParse(userInput, out itemNumber))
             {
@@ -44,7 +44,7 @@ namespace Assignement1Inheritance.Entities
             {
                 if (foundAppliance.IsAvailable)
                 {
-                    foundAppliance.Checkout();
+                    Checkout();
                     Console.WriteLine("Appliance has been checked out.");
                 }
                 else
@@ -59,29 +59,27 @@ namespace Assignement1Inheritance.Entities
         /// </summary>
         public override void Find()
         {
-            Console.WriteLine("Enter brand to search for:");
-
-           string enteredBrand = Console.ReadLine();
+            Console.Write("Enter brand of appliance:");
+            string? enteredBrand = Console.ReadLine();
 
             List<Appliance> foundAppliances = new List<Appliance>();
 
             foreach (var appliance in Appliances)
             {
-                if (appliance.Brand == enteredBrand)
+                if (string.Equals(appliance.Brand, enteredBrand, StringComparison.OrdinalIgnoreCase))
                 {
                     foundAppliances.Add(appliance);
                 }
             }
 
-            DisplayAppliencesFromList(foundAppliances, 0);
-
+            DisplayAppliancesFromList(foundAppliances, 0);
         }
 
         /// <summary>
         /// Displays Refridgerators
         /// </summary>
         public override void DisplayRefrigerators()
-        {
+        {   
             Console.WriteLine("Possible options:");
             Console.WriteLine("0 - Any");
             Console.WriteLine("2 - Double doors");
@@ -128,7 +126,7 @@ namespace Assignement1Inheritance.Entities
             Console.WriteLine("2 - Commercial");
 
             Console.WriteLine("Enter grade:");
-            string userInput = Console.ReadLine();
+            string? userInput = Console.ReadLine();
 
             string grade;
             if (userInput == "0")
@@ -157,18 +155,18 @@ namespace Assignement1Inheritance.Entities
             Console.WriteLine("Enter voltage:");
             userInput = Console.ReadLine();
 
-            int voltage;
+            int wattage;
             if (userInput == "0")
             {
-                voltage = 0;
+                wattage = 0;
             }
             else if (userInput == "1")
             {
-                voltage = 18;
+                wattage = 18;
             }
             else if (userInput == "2")
             {
-                voltage = 24;
+                wattage = 24;
             }
             else
             {
@@ -182,7 +180,7 @@ namespace Assignement1Inheritance.Entities
             {
                 if (appliance is Vacuum vacuum)
                 {
-                    if ((grade == "Any" || vacuum.Grade == grade) && (voltage == 0 || vacuum.Voltage == voltage))
+                    if ((grade == "Any" || vacuum.Grade == grade) && (wattage == 0 || vacuum.Wattage == wattage))
                     {
                         foundAppliances.Add(appliance);
                     }
@@ -356,4 +354,4 @@ namespace Assignement1Inheritance.Entities
         }
     }
 }
-}
+

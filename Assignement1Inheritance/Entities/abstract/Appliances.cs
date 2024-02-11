@@ -24,7 +24,6 @@ namespace Assignement1Inheritance.Entities.@abstract
         private decimal _price;
         private int _quantity;
         private decimal _wattage;
-        private bool _isAvalailable;
 
 
         public ApplianceTypes type
@@ -65,11 +64,8 @@ namespace Assignement1Inheritance.Entities.@abstract
             get { return _wattage; }
             set { _wattage = value; }
         }
-        public bool IsAvalailable
-        {
-            get { return _isAvalailable; }
-            set { _isAvalailable = value; }
-        }
+        public bool IsAvailable { get; set; }
+
 
         public virtual string FormatForFile()
         {
